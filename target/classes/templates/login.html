@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Đăng nhập | Sơn BĐS</title><link rel="stylesheet" th:href="@{/css/site.css}"></head>
+<body class="auth-page"><a class="brand" th:href="@{/}">SƠN<span>BĐS</span></a>
+<main class="auth-card"><p class="eyebrow">CHÀO MỪNG TRỞ LẠI</p><h1>Đăng nhập</h1>
+    <div class="notice" th:if="${notice}" th:text="${notice}"></div>
+    <div class="form-error" th:if="${param.error}">Email hoặc mật khẩu chưa chính xác.</div>
+    <form th:action="@{/login}" method="post" class="stack-form">
+        <label>Email<input type="email" name="username" autocomplete="email" required></label>
+        <label>Mật khẩu<input type="password" name="password" autocomplete="current-password" required></label>
+        <button class="button" type="submit">Đăng nhập</button>
+    </form>
+    <p class="form-footer">Chưa có tài khoản? <a th:href="@{/register}">Đăng ký ngay</a></p>
+</main>
+</body></html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Tạo dự án | Sơn BĐS</title><link rel="stylesheet" th:href="@{/css/site.css}"></head>
+<body><header class="topbar"><a class="brand" th:href="@{/}">SƠN<span>BĐS</span></a><nav><a th:href="@{/dashboard}">Quản lý của tôi</a></nav></header>
+<main class="form-page"><p class="eyebrow">DỰ ÁN ĐẤT NỀN</p><h1>Tạo dự án phân lô</h1>
+<div class="form-error" th:if="${projectErrors}"><p th:each="error : ${projectErrors}" th:text="${error.defaultMessage}"></p></div>
+<form th:action="@{/projects/new}" th:object="${landProjectForm}" method="post" class="stack-form">
+    <label>Tên dự án<input th:field="*{name}" maxlength="180" required></label><label>Địa chỉ<input th:field="*{address}" maxlength="300" required></label>
+    <label>Mô tả<textarea th:field="*{description}" rows="5" required></textarea></label>
+    <label>Số lượng nền<input th:field="*{plotCount}" type="number" min="0"></label>
+    <label>Quyền xem<select th:field="*{visibility}"><option value="PUBLIC">Công khai</option><option value="PRIVATE">Riêng tư (chỉ người được cấp quyền)</option></select></label>
+    <button class="button" type="submit">Tạo dự án</button>
+</form></main></body></html>

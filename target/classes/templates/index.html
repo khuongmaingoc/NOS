@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sơn BĐS | Chợ bất động sản</title>
+    <link rel="stylesheet" th:href="@{/css/site.css}">
+</head>
+<body>
+<header class="topbar">
+    <a class="brand" th:href="@{/}">SƠN<span>BĐS</span></a>
+    <nav>
+        <a href="#tin-dang">Mua / thuê nhà</a><a href="#du-an">Dự án đất nền</a>
+        <a th:if="${account != null}" th:href="@{/dashboard}">Quản lý của tôi</a>
+        <a th:if="${account == null}" th:href="@{/login}">Đăng nhập</a>
+        <a th:if="${account == null}" class="button button-small" th:href="@{/register}">Đăng ký</a>
+        <form th:if="${account != null}" th:action="@{/logout}" method="post"><button class="link-button" type="submit">Đăng xuất</button></form>
+    </nav>
+</header>
+<main>
+    <section class="hero">
+        <div class="hero-copy">
+            <p class="eyebrow">MỞ RA CƠ HỘI AN CƯ VÀ ĐẦU TƯ</p>
+            <h1>Tìm đúng nơi,<br><span>an tâm xuống tiền.</span></h1>
+            <p class="muted">Khám phá nhà đất, kết nối trực tiếp với chủ tin và theo dõi dự án minh bạch.</p>
+            <a class="button" href="#tin-dang">Khám phá tin đăng <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="hero-art" aria-label="Nhà ở minh họa">
+            <div class="sun"></div><div class="house"><div class="roof"></div><div class="home-body"><div class="window"></div><div class="door"></div></div></div>
+            <div class="plant plant-one"></div><div class="plant plant-two"></div>
+        </div>
+    </section>
+    <div th:if="${notice}" class="notice" th:text="${notice}"></div>
+    <section id="tin-dang" class="section">
+        <div class="section-heading"><div><p class="eyebrow">ĐƯỢC QUAN TÂM</p><h2>Tin bất động sản</h2></div><span class="muted" th:text="${#lists.size(listings) + ' tin đang hiển thị'}"></span></div>
+        <div class="card-grid" th:if="${!#lists.isEmpty(listings)}">
+            <article class="property-card" th:each="listing : ${listings}">
+                <img th:if="${!#lists.isEmpty(listing.imageUrls)}" th:src="${listing.imageUrls[0]}" alt="Ảnh bất động sản">
+                <div th:unless="${!#lists.isEmpty(listing.imageUrls)}" class="image-placeholder">⌂</div>
+                <div class="card-content">
+                    <div class="tags"><span th:text="${listing.transactionType}"></span><span class="status" th:text="${listing.status}"></span></div>
+                    <h3 th:text="${listing.title}"></h3><p class="muted" th:text="${listing.address}"></p>
+                    <div class="card-meta"><strong th:text="${#numbers.formatDecimal(listing.price, 0, 'COMMA', 0, 'POINT') + ' đ'}"></strong><span th:text="${listing.area + ' m²'}"></span></div>
+                    <p class="card-description" th:text="${listing.description}"></p>
+                </div>
+            </article>
+        </div>
+        <div class="empty-state" th:if="${#lists.isEmpty(listings)}">Chưa có tin đăng phù hợp. Hãy quay lại sau nhé.</div>
+    </section>
+    <section id="du-an" class="section project-section">
+        <div class="section-heading"><div><p class="eyebrow">QUY HOẠCH RÕ RÀNG</p><h2>Dự án phân lô bán nền</h2></div></div>
+        <div class="project-grid" th:if="${!#lists.isEmpty(projects)}">
+            <article class="project-card" th:each="project : ${projects}">
+                <span class="project-icon">▦</span><div><h3 th:text="${project.name}"></h3>
+                    <p class="muted" th:text="${project.address}"></p><p th:text="${project.plotCount + ' nền'}"></p></div>
+            </article>
+        </div>
+        <div class="empty-state" th:if="${#lists.isEmpty(projects)}">Chưa có dự án được đăng.</div>
+    </section>
+    <section class="seller-banner"><div><p class="eyebrow">BẠN CÓ NHÀ ĐẤT CẦN BÁN?</p><h2>Đăng tin và gặp đúng khách hàng.</h2></div><a class="button button-light" th:href="@{/register}">Bắt đầu đăng tin</a></section>
+</main>
+<footer>© 2026 Sơn BĐS · Kết nối người mua và người bán bất động sản.</footer>
+</body>
+</html>

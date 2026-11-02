@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Quản lý tin | Sơn BĐS</title><link rel="stylesheet" th:href="@{/css/site.css}"></head>
+<body>
+<header class="topbar"><a class="brand" th:href="@{/}">SƠN<span>BĐS</span></a><nav><a th:href="@{/}">Trang chủ</a><span th:text="${account.name}"></span><form th:action="@{/logout}" method="post"><button class="link-button" type="submit">Đăng xuất</button></form></nav></header>
+<main class="dashboard">
+    <div class="section-heading"><div><p class="eyebrow">KHÔNG GIAN CỦA BẠN</p><h1>Xin chào, <span th:text="${account.name}"></span></h1><p class="muted">Quản lý tin đăng, dự án và khách hàng quan tâm.</p></div>
+        <div class="actions" th:if="${seller}"><a class="button" th:href="@{/listings/new}">+ Đăng tin</a><a class="button button-outline" th:href="@{/projects/new}">+ Tạo dự án</a></div>
+    </div>
+    <div th:if="${notice}" class="notice" th:text="${notice}"></div>
+    <section class="dashboard-section"><h2>Tin bất động sản của tôi</h2><div class="table-wrap">
+        <table><thead><tr><th>Tin đăng</th><th>Địa chỉ</th><th>Giá</th><th>Trạng thái</th><th>Hiển thị</th></tr></thead>
+            <tbody><tr th:each="listing : ${listings}"><td th:text="${listing.title}"></td><td th:text="${listing.address}"></td><td th:text="${#numbers.formatDecimal(listing.price, 0, 'COMMA', 0, 'POINT') + ' đ'}"></td><td th:text="${listing.status}"></td><td th:text="${listing.visibility}"></td></tr>
+            <tr th:if="${#lists.isEmpty(listings)}"><td colspan="5" class="muted">Chưa có tin nào.</td></tr></tbody></table>
+    </div></section>
+    <section class="dashboard-section"><h2>Dự án của tôi</h2><div class="table-wrap"><table><thead><tr><th>Dự án</th><th>Địa chỉ</th><th>Số nền</th><th>Hiển thị</th></tr></thead>
+        <tbody><tr th:each="project : ${projects}"><td th:text="${project.name}"></td><td th:text="${project.address}"></td><td th:text="${project.plotCount}"></td><td th:text="${project.visibility}"></td></tr>
+        <tr th:if="${#lists.isEmpty(projects)}"><td colspan="4" class="muted">Chưa có dự án nào.</td></tr></tbody></table></div></section>
+    <section class="dashboard-section" th:if="${!#lists.isEmpty(inquiries)}"><h2>Khách hàng quan tâm</h2><div class="inquiry-list"><article th:each="inquiry : ${inquiries}" class="inquiry-card"><p th:text="${inquiry.message}"></p><span class="status" th:text="${inquiry.status}"></span></article></div></section>
+</main><footer>© 2026 Sơn BĐS</footer></body></html>

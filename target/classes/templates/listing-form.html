@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Đăng tin | Sơn BĐS</title><link rel="stylesheet" th:href="@{/css/site.css}"></head>
+<body><header class="topbar"><a class="brand" th:href="@{/}">SƠN<span>BĐS</span></a><nav><a th:href="@{/dashboard}">Quản lý của tôi</a></nav></header>
+<main class="form-page"><p class="eyebrow">DÀNH CHO ĐẦU CHỦ</p><h1>Đăng tin bất động sản</h1>
+<div class="form-error" th:if="${errors}"><p th:each="error : ${errors}" th:text="${error.defaultMessage}"></p></div>
+<form th:action="@{/listings/new}" method="post" class="stack-form">
+    <label>Tiêu đề<input name="title" maxlength="180" required></label><label>Địa chỉ<input name="address" maxlength="300" required></label>
+    <label>Mô tả<textarea name="description" rows="5" required></textarea></label>
+    <div class="form-row"><label>Giá (VND)<input name="price" type="number" min="1" step="1000" required></label><label>Diện tích (m²)<input name="area" type="number" min="0.1" step="0.1" required></label></div>
+    <div class="form-row"><label>Hình thức<select name="transactionType"><option value="Bán">Bán</option><option value="Cho thuê">Cho thuê</option></select></label><label>Loại bất động sản<input name="propertyType" placeholder="Căn hộ, nhà phố, đất..." required></label></div>
+    <label>Đường dẫn ảnh (tùy chọn)<input name="imageUrls" type="url" placeholder="https://..."></label>
+    <label>Quyền xem<select name="visibility"><option value="PUBLIC">Công khai</option><option value="PRIVATE">Riêng tư (chỉ người được cấp quyền)</option></select></label>
+    <button class="button" type="submit">Đăng tin</button>
+</form></main></body></html>
