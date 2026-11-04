@@ -27,9 +27,17 @@ public class ResourceAccessService {
                 || hasGrant(ResourceType.PROJECT, project.getId(), accountId, ResourcePermission.DELETE);
     }
 
+    public boolean canEdit(PropertyListing listing, Long accountId, boolean admin) {
+        return admin || listing.getOwnerId().equals(accountId)
+                || hasGrant(ResourceType.LISTING, listing.getId(), accountId, ResourcePermission.EDIT);
+    }
+
     public void requireListing(PropertyListing listing, Long accountId, boolean admin, ResourcePermission permission) {
-        if (!admin && !listing.getOwnerId().equals(accountId)
-                && !hasGrant(ResourceType.LISTING, listing.getId(), accountId, permission)) {
+        boolean allowed = permission == ResourcePermission.EDIT
+                ? canEdit(listing, accountId, admin)
+                : admin || listing.getOwnerId().equals(accountId)
+                    || hasGrant(ResourceType.LISTING, listing.getId(), accountId, permission);
+        if (!allowed) {
             throw new AccessDeniedException("Bạn không có quyền " + permission + " trên tin này");
         }
     }

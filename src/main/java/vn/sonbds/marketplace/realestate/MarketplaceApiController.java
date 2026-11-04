@@ -38,11 +38,13 @@ public class MarketplaceApiController {
     private final ResourceAccessService access;
     private final FavoriteRepository favorites;
     private final InquiryRepository inquiries;
+    private final CustomerLeadRepository leads;
 
     public MarketplaceApiController(AccountService accountService, AccountRepository accounts,
                                     PropertyListingRepository listings, LandProjectRepository projects,
                                     AccessGrantRepository grants, ResourceAccessService access,
-                                    FavoriteRepository favorites, InquiryRepository inquiries) {
+                                    FavoriteRepository favorites, InquiryRepository inquiries,
+                                    CustomerLeadRepository leads) {
         this.accountService = accountService;
         this.accounts = accounts;
         this.listings = listings;
@@ -51,6 +53,7 @@ public class MarketplaceApiController {
         this.access = access;
         this.favorites = favorites;
         this.inquiries = inquiries;
+        this.leads = leads;
     }
 
     @PostMapping("/auth/register")
@@ -58,9 +61,10 @@ public class MarketplaceApiController {
     public Map<String, Object> register(@Valid @RequestBody RegistrationRequest request) {
         Role role = request.role() == null ? Role.CUSTOMER : request.role();
         if (role == Role.ADMIN) throw new IllegalArgumentException("Không thể tự đăng ký quyền quản trị");
-        Account account = accountService.register(request.name(), request.email(), request.password(), role);
+        Account account = accountService.register(request.name(), request.email(), request.password(),
+                request.phone(), role);
         return Map.of("id", account.getId(), "name", account.getName(), "email", account.getEmail(),
-                "roles", account.getRoles());
+                "phone", account.getPhone() == null ? "" : account.getPhone(), "roles", account.getRoles());
     }
 
     @GetMapping("/listings")
@@ -92,7 +96,10 @@ public class MarketplaceApiController {
         Account account = requireSeller(authentication);
         return listings.save(new PropertyListing(account.getId(), request.title(), request.address(),
                 request.description(), request.price(), request.area(), request.transactionType(),
-                request.propertyType(), visibility(request.visibility()), request.imageUrls()));
+                request.propertyType(), visibility(request.visibility()), request.imageUrls(),
+                request.propertyFeature(), request.direction(), request.position(), request.interior(),
+                request.legalStatus(), request.priceUnit(), request.propertyStatus(),
+                request.latitude(), request.longitude()));
     }
 
     @PutMapping("/listings/{id}")
@@ -100,7 +107,10 @@ public class MarketplaceApiController {
                                          Authentication authentication) {
         PropertyListing item = listingForEdit(id, authentication, ResourcePermission.EDIT);
         item.update(request.title(), request.address(), request.description(), request.price(), request.area(),
-                request.transactionType(), request.propertyType(), visibility(request.visibility()), request.imageUrls());
+                request.transactionType(), request.propertyType(), visibility(request.visibility()), request.imageUrls(),
+                request.propertyFeature(), request.direction(), request.position(), request.interior(),
+                request.legalStatus(), request.priceUnit(), request.propertyStatus(),
+                request.latitude(), request.longitude());
         return listings.save(item);
     }
 
@@ -162,6 +172,42 @@ public class MarketplaceApiController {
     public void deleteProject(@PathVariable Long id, Authentication authentication) {
         LandProject item = projectForEdit(id, authentication, ResourcePermission.DELETE);
         projects.delete(item);
+    }
+
+    @GetMapping("/leads")
+    public List<CustomerLead> myLeads(Authentication authentication) {
+        Account account = requireSeller(authentication);
+        return CurrentAccount.isAdmin(account) ? leads.findAll()
+                : leads.findByOwnerIdOrderByUpdatedAtDesc(account.getId());
+    }
+
+    @GetMapping("/leads/{id}")
+    public CustomerLead lead(@PathVariable Long id, Authentication authentication) {
+        return ownedLead(id, requireSeller(authentication));
+    }
+
+    @PostMapping("/leads")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CustomerLead createLead(@Valid @RequestBody LeadRequest request, Authentication authentication) {
+        Account account = requireSeller(authentication);
+        validateLeadListing(request.listingId(), account);
+        return leads.save(new CustomerLead(account.getId(), request.listingId(), request));
+    }
+
+    @PutMapping("/leads/{id}")
+    public CustomerLead updateLead(@PathVariable Long id, @Valid @RequestBody LeadRequest request,
+                                   Authentication authentication) {
+        Account account = requireSeller(authentication);
+        CustomerLead lead = ownedLead(id, account);
+        validateLeadListing(request.listingId(), account);
+        lead.update(request.listingId(), request);
+        return leads.save(lead);
+    }
+
+    @DeleteMapping("/leads/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteLead(@PathVariable Long id, Authentication authentication) {
+        leads.delete(ownedLead(id, requireSeller(authentication)));
     }
 
     @PostMapping("/access-grants")
@@ -230,7 +276,7 @@ public class MarketplaceApiController {
         if (listing.getStatus() != ListingStatus.ACTIVE) throw new IllegalArgumentException("Tin không còn nhận liên hệ");
         if (!access.canView(listing, customer.getId(), false)) throw notFound("Không tìm thấy tin");
         if (listing.getOwnerId().equals(customer.getId())) throw new IllegalArgumentException("Không thể tự gửi liên hệ cho tin của bạn");
-        return inquiries.save(new Inquiry(id, customer.getId(), listing.getOwnerId(), request.message().trim()));
+        return inquiries.save(new Inquiry(id, customer.getId(), listing.getOwnerId(), request));
     }
 
     @GetMapping("/my/inquiries")
@@ -267,6 +313,22 @@ public class MarketplaceApiController {
         Account account = requireAccount(authentication);
         access.requireProject(project, account.getId(), CurrentAccount.isAdmin(account), permission);
         return project;
+    }
+
+    private CustomerLead ownedLead(Long id, Account account) {
+        CustomerLead lead = leads.findById(id).orElseThrow(() -> notFound("Không tìm thấy khách hàng"));
+        if (!CurrentAccount.isAdmin(account) && !lead.getOwnerId().equals(account.getId())) {
+            throw new AccessDeniedException("Bạn không có quyền truy cập khách hàng này");
+        }
+        return lead;
+    }
+
+    private void validateLeadListing(Long listingId, Account account) {
+        if (listingId == null) return;
+        PropertyListing listing = listings.findById(listingId).orElseThrow(() -> notFound("Không tìm thấy tin liên quan"));
+        if (!CurrentAccount.isAdmin(account) && !listing.getOwnerId().equals(account.getId())) {
+            throw new AccessDeniedException("Chỉ có thể liên kết tin bất động sản của bạn");
+        }
     }
 
     private void requireResourceOwner(ResourceType type, Long resourceId, Account actor) {

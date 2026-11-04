@@ -9,6 +9,7 @@
         <small class="field-error" th:errors="*{name}"></small>
         <label>Email<input type="email" th:field="*{email}" autocomplete="email" required></label>
         <small class="field-error" th:errors="*{email}"></small>
+        <label>Số điện thoại (không bắt buộc)<input type="tel" th:field="*{phone}" autocomplete="tel" maxlength="30"></label>
         <label>Mật khẩu (ít nhất 8 ký tự)<input type="password" th:field="*{password}" autocomplete="new-password" minlength="8" required></label>
         <small class="field-error" th:errors="*{password}"></small>
         <label>Bạn tham gia với vai trò

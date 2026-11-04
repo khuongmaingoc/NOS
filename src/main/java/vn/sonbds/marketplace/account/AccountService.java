@@ -26,10 +26,15 @@ public class AccountService implements UserDetailsService {
 
     @Transactional
     public Account register(String name, String email, String password, Role role) {
+        return register(name, email, password, null, role);
+    }
+
+    @Transactional
+    public Account register(String name, String email, String password, String phone, Role role) {
         String normalizedEmail = email.trim().toLowerCase();
         if (accounts.existsByEmailIgnoreCase(normalizedEmail)) {
             throw new IllegalArgumentException("Email đã được sử dụng");
         }
-        return accounts.save(new Account(name.trim(), normalizedEmail, passwordEncoder.encode(password), Set.of(role)));
+        return accounts.save(new Account(name.trim(), normalizedEmail, passwordEncoder.encode(password), phone, Set.of(role)));
     }
 }

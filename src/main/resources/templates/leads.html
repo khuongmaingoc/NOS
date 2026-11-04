@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quản lý khách hàng CRM | Sơn BĐS</title>
+    <link rel="stylesheet" th:href="@{/css/site.css}">
+    <link rel="stylesheet" th:href="@{/css/crm.css}">
+</head>
+<body class="crm-page">
+<header class="topbar">
+    <a class="brand" th:href="@{/}">SƠN<span>BĐS</span></a>
+    <nav><a th:href="@{/dashboard}">Quản lý của tôi</a><span th:text="${account.name}"></span></nav>
+</header>
+<main class="crm-container">
+    <div class="crm-heading">
+        <div>
+            <p class="crm-eyebrow">CHĂM SÓC KHÁCH HÀNG</p>
+            <h1>Quản lý khách hàng</h1>
+            <p class="crm-subtitle">Lưu trữ nhu cầu, theo dõi chăm sóc và quản lý khách hàng tiềm năng.</p>
+        </div>
+        <a class="button crm-add-button" th:href="@{/leads/new}"><span aria-hidden="true">+</span> Thêm khách hàng</a>
+    </div>
+
+    <div th:if="${notice}" class="crm-alert crm-alert-success" role="status" th:text="${notice}"></div>
+    <div th:if="${importError}" class="crm-alert crm-alert-error" role="alert" th:text="${importError}"></div>
+
+    <section class="crm-import-card" aria-labelledby="crm-import-heading">
+        <div class="crm-import-intro">
+            <span class="crm-import-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5"/><path d="M5 13v5.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V13"/></svg>
+            </span>
+            <div>
+                <p class="crm-eyebrow">NHẬP DỮ LIỆU HÀNG LOẠT</p>
+                <h2 id="crm-import-heading">Nhập khách hàng từ Excel</h2>
+                <p class="crm-import-description">Tải mẫu, điền thông tin và chọn tệp .xlsx hoặc .xls (tối đa 5 MB).</p>
+            </div>
+        </div>
+        <form class="crm-import-form" th:action="@{/leads/import}" method="post" enctype="multipart/form-data">
+            <label class="crm-file-picker">
+                <span class="crm-file-name">Chọn file Excel</span>
+                <input type="file" name="file" accept=".xlsx,.xls" required>
+            </label>
+            <button type="submit" class="button crm-import-button">Tải lên và nhập</button>
+            <a class="crm-template-link" th:href="@{/leads/import-template}" download>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v12m0 0 4.5-4.5M12 16l-4.5-4.5"/><path d="M5 18.5h14"/></svg>
+                Tải file mẫu
+            </a>
+        </form>
+        <p class="crm-import-note">Hồ sơ trùng số điện thoại hoặc email sẽ được bỏ qua. Các dòng lỗi được báo riêng; dòng hợp lệ vẫn được nhập. Định dạng cột số điện thoại là Văn bản để giữ số 0 ở đầu.</p>
+    </section>
+
+    <section class="crm-import-errors" th:if="${importErrors != null and !#lists.isEmpty(importErrors)}" aria-label="Các dòng không nhập được">
+        <h2>Các dòng cần kiểm tra</h2>
+        <ul><li th:each="error : ${importErrors}"><strong th:text="${'Dòng ' + error.row}"></strong><span th:text="${error.message}"></span></li></ul>
+    </section>
+
+    <section class="crm-list-section">
+        <div class="crm-list-heading">
+            <div><p class="crm-eyebrow">DANH SÁCH CRM</p><h2>Khách hàng tiềm năng</h2></div>
+            <span class="crm-total"><strong th:text="${#lists.size(leads)}"></strong> hồ sơ</span>
+        </div>
+        <div class="table-wrap crm-table-wrap">
+            <table class="wide-table">
+                <thead><tr>
+                    <th>Khách hàng</th><th>Điện thoại</th><th>Email</th><th>Nguồn dữ liệu</th><th>Đối tượng</th><th>Nhu cầu</th><th>Giới tính</th><th>Kênh tiếp cận</th><th>Mức độ quan tâm</th><th>Trạng thái liên hệ</th><th>Tin liên quan</th><th>Địa chỉ/khu vực BĐS</th><th>Tọa độ bản đồ</th><th>Đặc điểm BĐS</th><th>Hướng</th><th>Vị trí</th><th>Nội thất</th><th>Hồ sơ pháp lý</th><th>Đơn vị</th><th>Tình trạng BĐS</th><th>Trạng thái giao dịch</th><th>Ghi chú</th><th>Thao tác</th>
+                </tr></thead>
+                <tbody>
+                <tr th:each="lead : ${leads}">
+                    <td class="crm-name" th:text="${lead.name}"></td><td th:text="${lead.phone ?: '—'}"></td><td th:text="${lead.email ?: '—'}"></td>
+                    <td th:text="${lead.source ?: '—'}"></td><td th:text="${lead.subject ?: '—'}"></td><td th:text="${lead.need ?: '—'}"></td>
+                    <td th:text="${lead.gender ?: '—'}"></td><td th:text="${lead.contactChannel ?: '—'}"></td><td th:text="${lead.interestLevel ?: '—'}"></td>
+                    <td th:text="${lead.contactStatus ?: '—'}"></td><td th:text="${listingTitles.get(lead.listingId) ?: '—'}"></td>
+                    <td th:text="${lead.propertyAddress ?: '—'}"></td><td><a th:if="${lead.latitude != null and lead.longitude != null}" class="text-link" target="_blank" rel="noopener noreferrer" th:href="@{|https://www.openstreetmap.org/#map=16/${lead.latitude}/${lead.longitude}|}" th:text="${lead.latitude + ', ' + lead.longitude}"></a><span th:unless="${lead.latitude != null and lead.longitude != null}">—</span></td>
+                    <td th:text="${lead.propertyFeature ?: '—'}"></td><td th:text="${lead.direction ?: '—'}"></td><td th:text="${lead.position ?: '—'}"></td>
+                    <td th:text="${lead.interior ?: '—'}"></td><td th:text="${lead.legalStatus ?: '—'}"></td><td th:text="${lead.priceUnit ?: '—'}"></td>
+                    <td th:text="${lead.propertyStatus ?: '—'}"></td><td th:text="${lead.dealStatus ?: '—'}"></td><td th:text="${lead.notes ?: '—'}"></td>
+                    <td><div class="table-actions"><a class="text-link" th:href="@{/leads/{id}/edit(id=${lead.id})}">Sửa</a>
+                        <form th:action="@{/leads/{id}/delete(id=${lead.id})}" method="post" onsubmit="return confirm('Xóa khách hàng này?')"><button class="delete-button" type="submit">Xóa</button></form></div></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(leads)}"><td colspan="23" class="crm-empty">Chưa có khách hàng. Hãy thêm mới hoặc nhập danh sách từ file Excel.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+<footer>© 2026 Sơn BĐS</footer>
+<script>
+    document.querySelector('.crm-file-picker input').addEventListener('change', function () {
+        const label = this.closest('.crm-file-picker').querySelector('.crm-file-name');
+        label.textContent = this.files.length ? this.files[0].name : 'Chọn file Excel';
+    });
+</script>
+</body>
+</html>

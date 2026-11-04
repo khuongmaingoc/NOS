@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.time.Instant;
 
 @Entity
 @Table(name = "accounts", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -30,6 +31,8 @@ public class Account implements UserDetails {
     private String name;
     private String email;
     private String password;
+    private String phone;
+    private Instant createdAt = Instant.now();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "account_roles", joinColumns = @JoinColumn(name = "account_id"))
@@ -40,15 +43,22 @@ public class Account implements UserDetails {
     }
 
     public Account(String name, String email, String password, Set<Role> roles) {
+        this(name, email, password, null, roles);
+    }
+
+    public Account(String name, String email, String password, String phone, Set<Role> roles) {
         this.name = name;
         this.email = email.toLowerCase();
         this.password = password;
+        this.phone = phone == null || phone.isBlank() ? null : phone.trim();
         this.roles = new HashSet<>(roles);
     }
 
     public Long getId() { return id; }
     public String getName() { return name; }
     public String getEmail() { return email; }
+    public String getPhone() { return phone; }
+    public Instant getCreatedAt() { return createdAt; }
     public Set<Role> getRoles() { return Set.copyOf(roles); }
     @Override public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.name())).toList();

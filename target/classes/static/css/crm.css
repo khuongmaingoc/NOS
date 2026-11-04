@@ -1,0 +1,424 @@
+.crm-page {
+    background: #f7f8f5;
+}
+
+.crm-page .topbar {
+    padding-right: max(calc((100vw - 1320px) / 2), 4vw);
+    padding-left: max(calc((100vw - 1320px) / 2), 4vw);
+}
+
+.crm-container {
+    width: min(1320px, calc(100% - 64px));
+    margin: 45px auto 70px;
+}
+
+.crm-heading,
+.crm-list-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.crm-heading {
+    margin-bottom: 25px;
+}
+
+.crm-eyebrow {
+    margin: 0 0 8px;
+    color: #788f4b;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.crm-heading h1 {
+    margin: 0;
+    color: #19271e;
+    font: 800 clamp(28px, 3.5vw, 37px) Manrope, "Segoe UI", sans-serif;
+    letter-spacing: -1.3px;
+}
+
+.crm-subtitle {
+    margin: 9px 0 0;
+    color: #78847b;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.crm-add-button {
+    min-height: 42px;
+    flex: 0 0 auto;
+}
+
+.crm-add-button span {
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.crm-alert {
+    margin: 0 0 16px;
+    padding: 12px 15px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.crm-alert-success {
+    border-color: #d7e8d8;
+    background: #eef7ef;
+    color: #315d3b;
+}
+
+.crm-alert-error {
+    border-color: #f0d7cf;
+    background: #fff3ef;
+    color: #8d4030;
+}
+
+.crm-import-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 15px;
+    margin-bottom: 36px;
+    padding: 22px 24px 18px;
+    border: 1px solid #e4e9e1;
+    border-radius: 11px;
+    background: linear-gradient(110deg, #fff 0%, #fbfdf9 100%);
+    box-shadow: 0 3px 12px #253c2b08;
+}
+
+.crm-import-intro {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.crm-import-icon {
+    display: grid;
+    width: 43px;
+    height: 43px;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 11px;
+    background: #eaf3e9;
+    color: #39744c;
+}
+
+.crm-import-icon svg,
+.crm-template-link svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+}
+
+.crm-import-intro .crm-eyebrow {
+    margin-bottom: 5px;
+    font-size: 9px;
+}
+
+.crm-import-intro h2,
+.crm-list-heading h2,
+.crm-import-errors h2 {
+    margin: 0;
+    color: #243128;
+    font: 750 17px Manrope, "Segoe UI", sans-serif;
+    letter-spacing: -.3px;
+}
+
+.crm-import-description {
+    margin: 5px 0 0;
+    color: #7d887f;
+    font-size: 11px;
+    line-height: 1.55;
+}
+
+.crm-import-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.crm-file-picker {
+    position: relative;
+    display: inline-flex;
+    min-width: min(100%, 260px);
+    min-height: 40px;
+    align-items: center;
+    overflow: hidden;
+    padding: 0 12px;
+    border: 1px dashed #cbd8cc;
+    border-radius: 7px;
+    background: #fff;
+    color: #617066;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.crm-file-picker:hover {
+    border-color: #80a58a;
+    background: #fbfdfb;
+}
+
+.crm-file-picker input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.crm-file-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.crm-import-button {
+    min-height: 40px;
+    padding: 0 15px;
+    font-size: 11px;
+}
+
+.crm-template-link {
+    display: inline-flex;
+    min-height: 38px;
+    align-items: center;
+    gap: 7px;
+    padding: 0 8px;
+    color: #477a59;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.crm-template-link:hover {
+    color: #174e34;
+    text-decoration: underline;
+}
+
+.crm-template-link svg {
+    width: 17px;
+    height: 17px;
+}
+
+.crm-import-note {
+    margin: 0;
+    color: #8a958c;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.crm-import-errors {
+    margin: -18px 0 28px;
+    padding: 18px 20px;
+    border: 1px solid #f0ded0;
+    border-radius: 9px;
+    background: #fffaf5;
+}
+
+.crm-import-errors h2 {
+    color: #865330;
+    font-size: 13px;
+}
+
+.crm-import-errors ul {
+    display: grid;
+    max-height: 220px;
+    gap: 7px;
+    overflow: auto;
+    margin: 12px 0 0;
+    padding-left: 18px;
+    color: #745a46;
+    font-size: 11px;
+}
+
+.crm-import-errors li strong {
+    margin-right: 7px;
+}
+
+.crm-list-section {
+    min-width: 0;
+}
+
+.crm-list-heading {
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.crm-list-heading .crm-eyebrow {
+    margin-bottom: 5px;
+}
+
+.crm-total {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 11px;
+    border: 1px solid #e2e9df;
+    border-radius: 20px;
+    background: #fff;
+    color: #7c887e;
+    font-size: 10px;
+}
+
+.crm-total strong {
+    color: #347047;
+    font-size: 12px;
+}
+
+.crm-table-wrap {
+    box-shadow: 0 3px 12px #253c2b08;
+}
+
+.crm-table-wrap table {
+    min-width: 1850px;
+    font-size: 11px;
+}
+
+.crm-table-wrap th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 12px 13px;
+    background: #f3f6f1;
+    color: #5d6b60;
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+.crm-table-wrap td {
+    padding: 12px 13px;
+    color: #68756b;
+    font-size: 10px;
+    vertical-align: middle;
+}
+
+.crm-table-wrap tbody tr:hover td {
+    background: #fbfcfa;
+}
+
+.crm-name {
+    color: #25372a;
+    font-weight: 700;
+}
+
+.crm-table-wrap .table-actions {
+    white-space: nowrap;
+}
+
+.crm-empty {
+    padding: 38px 16px;
+    color: #89958b;
+    text-align: center;
+}
+
+@media (max-width: 760px) {
+    .crm-container {
+        width: calc(100% - 36px);
+        margin: 32px auto 50px;
+    }
+
+    .crm-heading {
+        align-items: flex-start;
+    }
+
+    .crm-subtitle {
+        max-width: 480px;
+        font-size: 12px;
+    }
+
+    .crm-import-card {
+        padding: 18px;
+    }
+
+    .crm-file-picker {
+        flex: 1 1 220px;
+    }
+}
+
+@media (max-width: 520px) {
+    .crm-page .topbar {
+        height: 64px;
+        padding: 0 17px;
+    }
+
+    .crm-page .topbar nav {
+        gap: 12px;
+        font-size: 11px;
+    }
+
+    .crm-container {
+        width: calc(100% - 28px);
+        margin-top: 25px;
+    }
+
+    .crm-heading {
+        display: grid;
+        gap: 15px;
+    }
+
+    .crm-heading h1 {
+        font-size: 28px;
+    }
+
+    .crm-add-button {
+        min-height: 39px;
+        padding: 0 13px;
+        font-size: 12px;
+    }
+
+    .crm-import-card {
+        gap: 13px;
+        padding: 15px;
+    }
+
+    .crm-import-intro {
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .crm-import-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .crm-import-intro h2,
+    .crm-list-heading h2 {
+        font-size: 14px;
+    }
+
+    .crm-import-form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .crm-file-picker {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
+    .crm-import-button {
+        padding: 0 9px;
+        font-size: 10px;
+    }
+
+    .crm-template-link {
+        justify-content: center;
+        padding: 0 3px;
+        font-size: 10px;
+    }
+
+    .crm-import-errors {
+        padding: 15px;
+    }
+}

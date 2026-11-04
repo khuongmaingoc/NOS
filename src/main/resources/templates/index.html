@@ -12,6 +12,7 @@
     <nav>
         <a href="#tin-dang">Mua / thuê nhà</a><a href="#du-an">Dự án đất nền</a>
         <a th:if="${account != null}" th:href="@{/dashboard}">Quản lý của tôi</a>
+        <a th:if="${account != null and account.roles.contains(T(vn.sonbds.marketplace.account.Role).ADMIN)}" th:href="@{/admin}">Quản trị</a>
         <a th:if="${account == null}" th:href="@{/login}">Đăng nhập</a>
         <a th:if="${account == null}" class="button button-small" th:href="@{/register}">Đăng ký</a>
         <form th:if="${account != null}" th:action="@{/logout}" method="post"><button class="link-button" type="submit">Đăng xuất</button></form>
@@ -39,9 +40,10 @@
                 <div th:unless="${!#lists.isEmpty(listing.imageUrls)}" class="image-placeholder">⌂</div>
                 <div class="card-content">
                     <div class="tags"><span th:text="${listing.transactionType}"></span><span class="status" th:text="${listing.status}"></span></div>
-                    <h3 th:text="${listing.title}"></h3><p class="muted" th:text="${listing.address}"></p>
-                    <div class="card-meta"><strong th:text="${#numbers.formatDecimal(listing.price, 0, 'COMMA', 0, 'POINT') + ' đ'}"></strong><span th:text="${listing.area + ' m²'}"></span></div>
+                    <h3><a class="listing-title-link" th:href="@{/listings/{id}(id=${listing.id})}" th:text="${listing.title}"></a></h3><p class="muted" th:text="${listing.address}"></p>
+                    <div class="card-meta"><strong th:text="${#numbers.formatDecimal(listing.price, 0, 'COMMA', 0, 'POINT') + ' ' + (listing.priceUnit == 'VND' ? 'đ' : listing.priceUnit)}"></strong><span th:text="${listing.area + ' m²'}"></span></div>
                     <p class="card-description" th:text="${listing.description}"></p>
+                    <a class="detail-link" th:href="@{/listings/{id}(id=${listing.id})}">Xem chi tiết <span aria-hidden="true">→</span></a>
                 </div>
             </article>
         </div>

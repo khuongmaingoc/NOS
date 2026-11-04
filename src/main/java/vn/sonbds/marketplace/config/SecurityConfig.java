@@ -18,8 +18,10 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/listings", "/api/listings/**",
                                 "/api/projects", "/api/projects/**").permitAll()
+                        .requestMatchers("/admin", "/admin/**", "/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/**").authenticated()
-                        .requestMatchers("/dashboard", "/listings/new", "/projects/new").authenticated()
+                        .requestMatchers("/dashboard", "/listings/new", "/listings/*/edit",
+                                "/projects/new").authenticated()
                         .anyRequest().permitAll())
                 .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/", true).permitAll())
                 .logout(logout -> logout.logoutSuccessUrl("/"))

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Thông tin khách hàng | Sơn BĐS</title><link rel="stylesheet" th:href="@{/css/site.css}"><link rel="stylesheet" th:href="@{/css/maps.css}"><link rel="stylesheet" th:href="@{/webjars/leaflet/1.9.4/dist/leaflet.css}"></head>
+<body>
+<header class="topbar"><a class="brand" th:href="@{/}">SƠN<span>BĐS</span></a><nav><a th:href="@{/leads}">Khách hàng</a><a th:href="@{/dashboard}">Quản lý của tôi</a></nav></header>
+<main class="form-page lead-form-page">
+    <p class="eyebrow">CRM · KHÁCH HÀNG TIỀM NĂNG</p>
+    <h1 th:text="${leadId != null ? 'Cập nhật khách hàng' : 'Thêm khách hàng'}"></h1>
+    <div class="form-error" th:if="${formErrors}"><p th:each="error : ${formErrors}" th:text="${error.defaultMessage}"></p></div>
+    <form th:action="@{${leadAction}}" th:object="${leadForm}" method="post" class="stack-form">
+        <h2>Thông tin liên hệ</h2>
+        <label>Họ tên<input th:field="*{name}" maxlength="120" required></label>
+        <div class="form-row"><label>Số điện thoại<input th:field="*{phone}" type="tel" maxlength="30"></label><label>Email<input th:field="*{email}" type="email" maxlength="180"></label></div>
+        <label>Tin bất động sản liên quan<select th:field="*{listingId}"><option value="">Chưa liên kết</option><option th:each="listing : ${ownedListings}" th:value="${listing.id}" th:text="${listing.title}"></option></select></label>
+        <section class="map-picker-section">
+            <div class="map-section-heading"><div><h2>Địa điểm khách hàng quan tâm</h2><p>Địa chỉ nhập tay; ghim bản đồ sẽ lưu tọa độ cho hồ sơ CRM.</p></div></div>
+            <label>Địa chỉ / khu vực bất động sản<input th:field="*{propertyAddress}" maxlength="300" placeholder="Quận, tỉnh/thành phố hoặc địa chỉ quan tâm"></label>
+            <div class="map-picker" data-map-picker data-latitude-selector="#latitude" data-longitude-selector="#longitude">
+                <div class="map-picker-canvas" data-map-canvas aria-label="Bản đồ chọn khu vực khách hàng quan tâm"></div>
+                <p class="map-picker-status" data-map-status role="status">Nhấp lên bản đồ để ghim khu vực quan tâm.</p>
+            </div>
+            <div class="map-coordinate-fields">
+                <label>Vĩ độ<input id="latitude" th:field="*{latitude}" type="number" min="-90" max="90" step="any" placeholder="Ví dụ: 10.7769" data-map-latitude></label>
+                <label>Kinh độ<input id="longitude" th:field="*{longitude}" type="number" min="-180" max="180" step="any" placeholder="Ví dụ: 106.7009" data-map-longitude></label>
+                <button type="button" class="map-clear-button" data-map-clear>Xóa ghim</button>
+            </div>
+            <p class="map-privacy-note">Không gửi tọa độ khách hàng tới dịch vụ tra cứu địa chỉ. Bản đồ nền tải các ô bản đồ OpenStreetMap; máy chủ bản đồ có thể nhận địa chỉ IP và vùng bản đồ đang xem. <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">Thông tin bản quyền</a>.</p>
+        </section>
+        <div class="form-row"><label>Nguồn dữ liệu<input th:field="*{source}" list="sources" maxlength="80"><datalist id="sources"><option th:each="value : ${sources}" th:value="${value}"></option></datalist></label>
+            <label>Đối tượng<input th:field="*{subject}" list="subjects" maxlength="80"><datalist id="subjects"><option th:each="value : ${subjects}" th:value="${value}"></option></datalist></label></div>
+        <div class="form-row"><label>Nhu cầu<input th:field="*{need}" list="needs" maxlength="80"><datalist id="needs"><option th:each="value : ${needs}" th:value="${value}"></option></datalist></label>
+            <label>Giới tính<input th:field="*{gender}" list="genders" maxlength="40"><datalist id="genders"><option th:each="value : ${genders}" th:value="${value}"></option></datalist></label></div>
+        <div class="form-row"><label>Kênh tiếp cận<input th:field="*{contactChannel}" list="channels" maxlength="80"><datalist id="channels"><option th:each="value : ${channels}" th:value="${value}"></option></datalist></label>
+            <label>Mức độ quan tâm<input th:field="*{interestLevel}" list="interest-levels" maxlength="80"><datalist id="interest-levels"><option th:each="value : ${interestLevels}" th:value="${value}"></option></datalist></label></div>
+        <div class="form-row"><label>Trạng thái liên hệ<input th:field="*{contactStatus}" list="contact-statuses" maxlength="80"><datalist id="contact-statuses"><option th:each="value : ${contactStatuses}" th:value="${value}"></option></datalist></label>
+            <label>Trạng thái giao dịch<input th:field="*{dealStatus}" list="deal-statuses" maxlength="80"><datalist id="deal-statuses"><option th:each="value : ${dealStatuses}" th:value="${value}"></option></datalist></label></div>
+        <h2>Nhu cầu / đặc điểm bất động sản</h2>
+        <div class="form-row"><label>Đặc điểm BĐS<input th:field="*{propertyFeature}" list="property-features" maxlength="80"><datalist id="property-features"><option th:each="value : ${propertyFeatures}" th:value="${value}"></option></datalist></label>
+            <label>Hướng<input th:field="*{direction}" list="directions" maxlength="80"><datalist id="directions"><option th:each="value : ${directions}" th:value="${value}"></option></datalist></label></div>
+        <div class="form-row"><label>Vị trí<input th:field="*{position}" list="positions" maxlength="80"><datalist id="positions"><option th:each="value : ${positions}" th:value="${value}"></option></datalist></label>
+            <label>Nội thất<input th:field="*{interior}" list="interiors" maxlength="100"><datalist id="interiors"><option th:each="value : ${interiors}" th:value="${value}"></option></datalist></label></div>
+        <div class="form-row"><label>Hồ sơ pháp lý<input th:field="*{legalStatus}" list="legal-statuses" maxlength="100"><datalist id="legal-statuses"><option th:each="value : ${legalStatuses}" th:value="${value}"></option></datalist></label>
+            <label>Đơn vị giá<input th:field="*{priceUnit}" list="price-units" maxlength="20"><datalist id="price-units"><option th:each="value : ${priceUnits}" th:value="${value}"></option></datalist></label></div>
+        <label>Tình trạng BĐS<input th:field="*{propertyStatus}" list="property-statuses" maxlength="80"><datalist id="property-statuses"><option th:each="value : ${propertyStatuses}" th:value="${value}"></option></datalist></label>
+        <label>Ghi chú<textarea th:field="*{notes}" rows="4" maxlength="2000"></textarea></label>
+        <div class="actions"><button class="button" type="submit">Lưu thông tin</button><a class="button button-outline" th:href="@{/leads}">Hủy</a></div>
+    </form>
+</main><footer>© 2026 Sơn BĐS</footer>
+<script th:src="@{/webjars/leaflet/1.9.4/dist/leaflet.js}"></script>
+<script th:src="@{/js/map-picker.js}"></script>
+</body></html>

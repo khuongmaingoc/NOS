@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7f4">
+    <title>Tổng quan quản trị | Sơn BĐS</title>
+    <link rel="stylesheet" th:href="@{/css/site.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body class="admin-body">
+<div class="admin-layout">
+    <aside class="admin-sidebar" aria-label="Điều hướng quản trị">
+        <a class="admin-brand" th:href="@{/}" aria-label="Sơn BĐS - Trang chủ">
+            <span class="admin-brand-mark">S</span>
+            <span class="admin-brand-name">SƠN<span>BĐS</span><small>REAL ESTATE</small></span>
+        </a>
+        <p class="admin-nav-label">KHÔNG GIAN QUẢN TRỊ</p>
+        <nav class="admin-side-nav">
+            <a class="admin-nav-link is-active" href="#overview">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>
+                <span>Tổng quan</span>
+            </a>
+            <a class="admin-nav-link" href="#filters">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10m-7 6h4"/><circle cx="8" cy="6" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="11" cy="18" r="1.5"/></svg>
+                <span>Bộ lọc thống kê</span>
+            </a>
+            <a class="admin-nav-link" href="#analytics">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5h16M6.5 16V10m5 6V5m5 11v-4"/></svg>
+                <span>Phân tích tin</span>
+            </a>
+            <a class="admin-nav-link" href="#sellers">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3.5 20v-1.3a5.5 5.5 0 0 1 11 0V20m2-9a3 3 0 1 0 0-6m1 9.5a4.5 4.5 0 0 1 3 4.3"/></svg>
+                <span>Đầu chủ</span>
+            </a>
+            <a class="admin-nav-link" href="#customers">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3.5 20v-1.3a5.5 5.5 0 0 1 11 0V20m4-11v6m-3-3h6"/></svg>
+                <span>Đầu khách</span>
+            </a>
+            <a class="admin-nav-link" href="#leads">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h14A1.5 1.5 0 0 1 20.5 6v12a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 18V6A1.5 1.5 0 0 1 5 4.5Z"/><path d="M7.5 9h9m-9 4h9m-9 4h5"/></svg>
+                <span>Khách hàng CRM</span>
+            </a>
+            <a class="admin-nav-link" th:href="@{/leads}">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3.5 20v-1.3a5.5 5.5 0 0 1 11 0V20m4-11v6m-3-3h6"/></svg>
+                <span>Quản lý khách hàng</span>
+            </a>
+        </nav>
+        <div class="admin-sidebar-bottom">
+            <div class="admin-profile">
+                <span class="admin-avatar">AD</span>
+                <span class="admin-profile-copy"><strong>Quản trị viên</strong><small>Quản lý hệ thống</small></span>
+                <span class="admin-online-dot" aria-label="Đang hoạt động"></span>
+            </div>
+            <a class="admin-sidebar-home" th:href="@{/}">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3.5 10 8.5-7 8.5 7v9a1.5 1.5 0 0 1-1.5 1.5h-14A1.5 1.5 0 0 1 3.5 19z"/><path d="M9 20.5v-7h6v7"/></svg>
+                <span>Về trang chủ</span>
+            </a>
+        </div>
+    </aside>
+
+    <div class="admin-workspace">
+        <header class="admin-topbar">
+            <div class="admin-breadcrumb"><span>Quản trị hệ thống</span><span class="breadcrumb-divider">/</span><strong>Tổng quan</strong></div>
+            <div class="admin-top-actions">
+                <span class="admin-live-status"><i></i> Hệ thống đang hoạt động</span>
+                <form th:action="@{/logout}" method="post"><button class="admin-logout" type="submit">Đăng xuất</button></form>
+            </div>
+        </header>
+
+        <main class="admin-dashboard">
+            <section id="overview" class="admin-overview">
+                <div class="admin-page-heading">
+                    <div>
+                        <p class="admin-eyebrow"><span></span> BẢNG ĐIỀU KHIỂN</p>
+                        <h1>Tổng quan hệ thống</h1>
+                        <p class="admin-page-description">Theo dõi hoạt động bất động sản, tài khoản và khách hàng trên một màn hình.</p>
+                    </div>
+                    <a class="admin-primary-action" href="#filters">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10m-7 6h4"/><circle cx="8" cy="6" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="11" cy="18" r="1.5"/></svg>
+                        Tùy chỉnh báo cáo
+                    </a>
+                </div>
+                <div class="admin-kpis">
+                    <article class="admin-kpi">
+                        <span class="admin-kpi-icon icon-listings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3.5 10 8.5-7 8.5 7v9a1.5 1.5 0 0 1-1.5 1.5h-14A1.5 1.5 0 0 1 3.5 19z"/><path d="M9 20.5v-7h6v7"/></svg></span>
+                        <span class="admin-kpi-label">Tin phù hợp bộ lọc</span>
+                        <strong th:text="${data.listingCount}"></strong>
+                        <small>Tin bất động sản</small>
+                    </article>
+                    <article class="admin-kpi">
+                        <span class="admin-kpi-icon icon-sellers"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3.5 20v-1.3a5.5 5.5 0 0 1 11 0V20m2-9a3 3 0 1 0 0-6m1 9.5a4.5 4.5 0 0 1 3 4.3"/></svg></span>
+                        <span class="admin-kpi-label">Đầu chủ</span>
+                        <strong th:text="${#lists.size(data.sellers)}"></strong>
+                        <small>Tài khoản người bán</small>
+                    </article>
+                    <article class="admin-kpi">
+                        <span class="admin-kpi-icon icon-customers"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3.5 20v-1.3a5.5 5.5 0 0 1 11 0V20m4-11v6m-3-3h6"/></svg></span>
+                        <span class="admin-kpi-label">Đầu khách</span>
+                        <strong th:text="${#lists.size(data.customers)}"></strong>
+                        <small>Tài khoản người mua / thuê</small>
+                    </article>
+                    <article class="admin-kpi">
+                        <span class="admin-kpi-icon icon-leads"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h14A1.5 1.5 0 0 1 20.5 6v12a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 18V6A1.5 1.5 0 0 1 5 4.5Z"/><path d="M7.5 9h9m-9 4h9m-9 4h5"/></svg></span>
+                        <span class="admin-kpi-label">Khách hàng CRM</span>
+                        <strong th:text="${#lists.size(data.leads)}"></strong>
+                        <small>Hồ sơ khách hàng tiềm năng</small>
+                    </article>
+                    <article class="admin-kpi admin-kpi-area">
+                        <span class="admin-kpi-icon icon-area"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V4h4m8 0h4v4m0 8v4h-4m-8 0H4v-4M8 8l8 8m0-8-8 8"/></svg></span>
+                        <span class="admin-kpi-label">Diện tích trung bình</span>
+                        <strong th:text="${data.averageArea == null ? '—' : #numbers.formatDecimal(data.averageArea, 1, 'COMMA', 0, 'POINT') + ' m²'}"></strong>
+                        <small th:text="${data.minArea == null ? 'Chưa có dữ liệu' : 'Từ ' + data.minArea + ' đến ' + data.maxArea + ' m²'}"></small>
+                    </article>
+                </div>
+            </section>
+
+            <section id="filters" class="admin-card admin-filters">
+                <div class="admin-section-heading">
+                    <div class="admin-section-title">
+                        <span class="admin-section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10m-7 6h4"/><circle cx="8" cy="6" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="11" cy="18" r="1.5"/></svg></span>
+                        <div><p class="admin-card-eyebrow">BÁO CÁO TÙY CHỈNH</p><h2>Bộ lọc dữ liệu tin đăng</h2></div>
+                    </div>
+                    <a class="admin-reset-link" th:href="@{/admin}">Đặt lại bộ lọc</a>
+                </div>
+                <form th:action="@{/admin}" th:object="${filter}" method="get" class="admin-filter-form">
+                    <label>Từ ngày<input th:field="*{from}" type="date"></label>
+                    <label>Đến ngày<input th:field="*{to}" type="date"></label>
+                    <label>Khu vực<input th:field="*{location}" placeholder="Quận, tỉnh, thành phố"></label>
+                    <label>Hình thức<select th:field="*{transactionType}"><option value="">Tất cả</option><option value="Bán">Bán</option><option value="Cho thuê">Cho thuê</option></select></label>
+                    <label>Loại BĐS<input th:field="*{propertyType}" placeholder="Căn hộ, nhà phố..."></label>
+                    <label>Trạng thái tin<select th:field="*{status}"><option value="">Tất cả</option><option th:each="status : ${listingStatuses}" th:value="${status}" th:text="${status}"></option></select></label>
+                    <label>Giá từ<input th:field="*{minPrice}" type="number" min="0" step="1000"></label>
+                    <label>Giá đến<input th:field="*{maxPrice}" type="number" min="0" step="1000"></label>
+                    <label>Diện tích từ (m²)<input th:field="*{minArea}" type="number" min="0" step="0.1"></label>
+                    <label>Diện tích đến (m²)<input th:field="*{maxArea}" type="number" min="0" step="0.1"></label>
+                    <label>Đơn vị giá<select th:field="*{priceUnit}"><option th:each="unit : ${priceUnits}" th:value="${unit}" th:text="${unit == 'ALL' ? 'Tất cả đơn vị' : unit}"></option></select></label>
+                    <label>Nhóm thống kê theo<select th:field="*{groupBy}">
+                        <option value="transactionType">Hình thức</option><option value="propertyType">Loại BĐS</option>
+                        <option value="status">Trạng thái tin</option><option value="direction">Hướng</option>
+                        <option value="location">Khu vực</option><option value="month">Tháng đăng</option>
+                        <option value="areaRange">Khoảng diện tích</option><option value="priceRange">Khoảng giá</option>
+                    </select></label>
+                    <div class="admin-filter-actions"><button class="admin-primary-action" type="submit">Áp dụng bộ lọc</button></div>
+                </form>
+            </section>
+
+            <section id="analytics" class="admin-section">
+                <div class="admin-section-heading admin-section-heading-main">
+                    <div><p class="admin-card-eyebrow">PHÂN TÍCH THỊ TRƯỜNG</p><h2>Thống kê bất động sản</h2></div>
+                    <span class="admin-section-note">Dựa trên bộ lọc đang áp dụng</span>
+                </div>
+                <div class="admin-data-grid">
+                    <article class="admin-card admin-panel">
+                        <div class="admin-section-heading"><div><p class="admin-card-eyebrow">GIÁ THỊ TRƯỜNG</p><h3>Giá theo từng đơn vị</h3></div></div>
+                        <div class="table-wrap"><table><thead><tr><th>Đơn vị</th><th>Trung bình</th><th>Thấp nhất</th><th>Cao nhất</th></tr></thead><tbody>
+                            <tr th:each="price : ${data.priceStats}"><td><span class="admin-unit-pill" th:text="${price.unit}"></span></td>
+                                <td th:text="${#numbers.formatDecimal(price.average, 0, 'COMMA', 0, 'POINT')}"></td>
+                                <td th:text="${#numbers.formatDecimal(price.min, 0, 'COMMA', 0, 'POINT')}"></td>
+                                <td th:text="${#numbers.formatDecimal(price.max, 0, 'COMMA', 0, 'POINT')}"></td></tr>
+                            <tr th:if="${#lists.isEmpty(data.priceStats)}"><td colspan="4" class="admin-empty">Không có dữ liệu phù hợp.</td></tr>
+                        </tbody></table></div>
+                    </article>
+                    <article class="admin-card admin-panel">
+                        <div class="admin-section-heading"><div><p class="admin-card-eyebrow">SO SÁNH NHÓM</p><h3>Số tin và diện tích theo nhóm</h3></div></div>
+                        <div class="table-wrap"><table><thead><tr><th>Nhóm</th><th>Số tin</th><th>Diện tích TB</th></tr></thead><tbody>
+                            <tr th:each="group : ${data.groupStats}"><td th:text="${group.label}"></td><td th:text="${group.count}"></td>
+                                <td th:text="${#numbers.formatDecimal(group.averageArea, 1, 'COMMA', 0, 'POINT') + ' m²'}"></td></tr>
+                            <tr th:if="${#lists.isEmpty(data.groupStats)}"><td colspan="3" class="admin-empty">Không có dữ liệu phù hợp.</td></tr>
+                        </tbody></table></div>
+                    </article>
+                </div>
+            </section>
+
+            <section id="sellers" class="admin-card admin-account-panel">
+                <div class="admin-section-heading">
+                    <div class="admin-section-title"><span class="admin-section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3.5 20v-1.3a5.5 5.5 0 0 1 11 0V20m2-9a3 3 0 1 0 0-6m1 9.5a4.5 4.5 0 0 1 3 4.3"/></svg></span>
+                        <div><p class="admin-card-eyebrow">TÀI KHOẢN HỆ THỐNG</p><h2>Danh sách đầu chủ</h2><p class="admin-section-description">Thông tin liên hệ và hoạt động của người bán.</p></div></div>
+                    <span class="admin-count-pill" th:text="${#lists.size(data.sellers) + ' tài khoản'}"></span>
+                </div>
+                <div class="table-wrap"><table><thead><tr><th>Họ tên</th><th>Email</th><th>Điện thoại</th><th>Vai trò</th><th>Ngày tạo</th><th>Số tin</th><th>Số khách CRM</th></tr></thead><tbody>
+                    <tr th:each="user : ${data.sellers}"><td class="admin-name-cell" th:text="${user.name}"></td><td th:text="${user.email}"></td><td th:text="${user.phone ?: '—'}"></td>
+                        <td><span class="admin-role-pill" th:text="${user.roles}"></span></td><td th:text="${user.createdAt}"></td><td th:text="${user.listingCount}"></td><td th:text="${user.leadCount}"></td></tr>
+                    <tr th:if="${#lists.isEmpty(data.sellers)}"><td colspan="7" class="admin-empty">Chưa có tài khoản đầu chủ.</td></tr>
+                </tbody></table></div>
+            </section>
+
+            <section id="customers" class="admin-card admin-account-panel">
+                <div class="admin-section-heading">
+                    <div class="admin-section-title"><span class="admin-section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3.5 20v-1.3a5.5 5.5 0 0 1 11 0V20m4-11v6m-3-3h6"/></svg></span>
+                        <div><p class="admin-card-eyebrow">TÀI KHOẢN HỆ THỐNG</p><h2>Danh sách đầu khách</h2></div></div>
+                    <span class="admin-count-pill" th:text="${#lists.size(data.customers) + ' tài khoản'}"></span>
+                </div>
+                <div class="table-wrap"><table><thead><tr><th>Họ tên</th><th>Email</th><th>Điện thoại</th><th>Vai trò</th><th>Ngày tạo</th><th>Số tin</th><th>Số khách CRM</th></tr></thead><tbody>
+                    <tr th:each="user : ${data.customers}"><td class="admin-name-cell" th:text="${user.name}"></td><td th:text="${user.email}"></td><td th:text="${user.phone ?: '—'}"></td>
+                        <td><span class="admin-role-pill" th:text="${user.roles}"></span></td><td th:text="${user.createdAt}"></td><td th:text="${user.listingCount}"></td><td th:text="${user.leadCount}"></td></tr>
+                    <tr th:if="${#lists.isEmpty(data.customers)}"><td colspan="7" class="admin-empty">Chưa có tài khoản đầu khách.</td></tr>
+                </tbody></table></div>
+            </section>
+
+            <section id="leads" class="admin-card admin-account-panel">
+                <div class="admin-section-heading">
+                    <div class="admin-section-title"><span class="admin-section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h14A1.5 1.5 0 0 1 20.5 6v12a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 18V6A1.5 1.5 0 0 1 5 4.5Z"/><path d="M7.5 9h9m-9 4h9m-9 4h5"/></svg></span>
+                        <div><p class="admin-card-eyebrow">THÔNG TIN LIÊN HỆ</p><h2>Khách hàng tiềm năng</h2></div></div>
+                    <span class="admin-count-pill" th:text="${#lists.size(data.leads) + ' hồ sơ'}"></span>
+                </div>
+                <div class="table-wrap"><table class="wide-table"><thead><tr><th>Khách hàng</th><th>Điện thoại</th><th>Email</th><th>Đầu chủ phụ trách</th><th>Nguồn</th><th>Đối tượng</th><th>Nhu cầu</th><th>Kênh</th><th>Mức quan tâm</th><th>Trạng thái liên hệ</th><th>Trạng thái BĐS</th><th>Trạng thái giao dịch</th></tr></thead><tbody>
+                    <tr th:each="item : ${data.leads}"><td class="admin-name-cell" th:text="${item.lead.name}"></td><td th:text="${item.lead.phone ?: '—'}"></td><td th:text="${item.lead.email ?: '—'}"></td>
+                        <td th:text="${item.ownerName}"></td><td th:text="${item.lead.source}"></td><td th:text="${item.lead.subject}"></td><td th:text="${item.lead.need}"></td>
+                        <td th:text="${item.lead.contactChannel}"></td><td th:text="${item.lead.interestLevel}"></td><td th:text="${item.lead.contactStatus}"></td>
+                        <td th:text="${item.lead.propertyStatus}"></td><td th:text="${item.lead.dealStatus}"></td></tr>
+                    <tr th:if="${#lists.isEmpty(data.leads)}"><td colspan="12" class="admin-empty">Chưa có khách hàng CRM.</td></tr>
+                </tbody></table></div>
+            </section>
+            <footer class="admin-footer">© 2026 Sơn BĐS <span>·</span> Khu vực quản trị</footer>
+        </main>
+    </div>
+</div>
+</body>
+</html>

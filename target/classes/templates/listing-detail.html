@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${listing.title + ' | Sơn BĐS'}">Chi tiết tin | Sơn BĐS</title>
+    <link rel="stylesheet" th:href="@{/css/site.css}">
+    <link rel="stylesheet" th:href="@{/css/maps.css}">
+    <link rel="stylesheet" th:href="@{/webjars/leaflet/1.9.4/dist/leaflet.css}">
+</head>
+<body>
+<header class="topbar">
+    <a class="brand" th:href="@{/}">SƠN<span>BĐS</span></a>
+    <nav>
+        <a th:href="@{/}">Tin bất động sản</a>
+        <a th:if="${account != null}" th:href="@{/dashboard}">Quản lý của tôi</a>
+        <a th:if="${account == null}" th:href="@{/login}">Đăng nhập</a>
+        <form th:if="${account != null}" th:action="@{/logout}" method="post"><button class="link-button" type="submit">Đăng xuất</button></form>
+    </nav>
+</header>
+<main class="listing-detail-page">
+    <a class="back-link" th:href="@{/#tin-dang}">← Quay lại danh sách tin</a>
+    <section class="listing-detail-header">
+        <div>
+            <div class="tags"><span th:text="${listing.transactionType}"></span><span class="status" th:text="${listing.status}"></span></div>
+            <h1 th:text="${listing.title}"></h1>
+            <p class="muted" th:text="${listing.address}"></p>
+        </div>
+        <div class="detail-actions" th:if="${canEdit}">
+            <a class="button" th:href="@{/listings/{id}/edit(id=${listing.id})}">Sửa tin</a>
+        </div>
+    </section>
+    <section class="detail-gallery">
+        <img th:each="image : ${listing.imageUrls}" th:src="${image}" alt="Ảnh bất động sản">
+        <div th:if="${#lists.isEmpty(listing.imageUrls)}" class="image-placeholder">⌂</div>
+    </section>
+    <section class="detail-content-grid">
+        <article class="detail-main">
+            <div class="price-panel">
+                <strong th:text="${#numbers.formatDecimal(listing.price, 0, 'COMMA', 0, 'POINT') + ' ' + (listing.priceUnit == 'VND' ? 'đ' : listing.priceUnit)}"></strong>
+                <span th:text="${listing.area + ' m²'}"></span>
+            </div>
+            <section class="detail-section">
+                <h2>Mô tả bất động sản</h2>
+                <p class="detail-description" th:text="${listing.description}"></p>
+            </section>
+            <section class="map-view-section" th:if="${listing.latitude != null and listing.longitude != null}"
+                     data-map-view th:attr="data-latitude=${listing.latitude},data-longitude=${listing.longitude}">
+                <div class="map-view-heading">
+                    <h2>Vị trí bất động sản</h2>
+                    <a target="_blank" rel="noopener noreferrer"
+                       th:href="@{|https://www.openstreetmap.org/#map=16/${listing.latitude}/${listing.longitude}|}">Mở bản đồ lớn ↗</a>
+                </div>
+                <div class="map-view-canvas" data-map-view-canvas aria-label="Bản đồ vị trí bất động sản"></div>
+                <p class="map-view-caption" data-map-view-status role="status"></p>
+            </section>
+            <section class="detail-section">
+                <h2>Thông tin chi tiết</h2>
+                <dl class="property-facts">
+                    <div><dt>Loại bất động sản</dt><dd th:text="${listing.propertyType}"></dd></div>
+                    <div><dt>Diện tích</dt><dd th:text="${listing.area + ' m²'}"></dd></div>
+                    <div><dt>Đặc điểm BĐS</dt><dd th:text="${listing.propertyFeature ?: 'Chưa cập nhật'}"></dd></div>
+                    <div><dt>Hướng</dt><dd th:text="${listing.direction ?: 'Chưa cập nhật'}"></dd></div>
+                    <div><dt>Vị trí</dt><dd th:text="${listing.position ?: 'Chưa cập nhật'}"></dd></div>
+                    <div><dt>Nội thất</dt><dd th:text="${listing.interior ?: 'Chưa cập nhật'}"></dd></div>
+                    <div><dt>Hồ sơ pháp lý</dt><dd th:text="${listing.legalStatus ?: 'Chưa cập nhật'}"></dd></div>
+                    <div><dt>Tình trạng BĐS</dt><dd th:text="${listing.propertyStatus ?: 'Chưa cập nhật'}"></dd></div>
+                    <div><dt>Hình thức</dt><dd th:text="${listing.transactionType}"></dd></div>
+                </dl>
+            </section>
+        </article>
+        <aside class="detail-sidebar">
+            <div class="seller-card">
+                <p class="eyebrow">THÔNG TIN TIN ĐĂNG</p>
+                <p><span>Trạng thái</span><strong th:text="${listing.status}"></strong></p>
+                <p><span>Ngày đăng</span><strong th:text="${listing.createdAt}"></strong></p>
+                <a class="button button-outline" th:href="@{/#tin-dang}">Xem tin khác</a>
+            </div>
+        </aside>
+    </section>
+</main>
+<footer>© 2026 Sơn BĐS · Kết nối người mua và người bán bất động sản.</footer>
+<script th:src="@{/webjars/leaflet/1.9.4/dist/leaflet.js}"></script>
+<script th:src="@{/js/map-picker.js}"></script>
+</body>
+</html>
