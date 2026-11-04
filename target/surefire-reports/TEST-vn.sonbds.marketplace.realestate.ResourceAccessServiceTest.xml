@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.121" tests="12" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.027" tests="12" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -66,15 +66,15 @@
     <property name="library.jansi.path" value="D:\1.Project\CongViec\JavaBackend\apache-maven-3.9.14\lib\jansi-native"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="privateListingIsVisibleToItsOwnerOnlyByDefault" classname="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.093"/>
-  <testcase name="leadStoresMapCoordinatesAndCustomerPropertyArea" classname="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.003"/>
-  <testcase name="viewGrantDoesNotAllowEditing" classname="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.003"/>
+  <testcase name="privateListingIsVisibleToItsOwnerOnlyByDefault" classname="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.005"/>
+  <testcase name="leadStoresMapCoordinatesAndCustomerPropertyArea" classname="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.0"/>
+  <testcase name="viewGrantDoesNotAllowEditing" classname="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.0"/>
   <testcase name="listingStoresCoordinatesForItsMapLocation" classname="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.0"/>
   <testcase name="rejectsIncompleteMapCoordinates" classname="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.001"/>
   <testcase name="leadKeepsCustomSpreadsheetValues" classname="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.001"/>
-  <testcase name="rejectsMapCoordinatesOutsideEarthBounds" classname="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.002"/>
-  <testcase name="listingPriceMustRemainPositiveAfterRounding" classname="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.001"/>
-  <testcase name="explicitEditGrantAllowsEditingAndViewing" classname="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.001"/>
+  <testcase name="rejectsMapCoordinatesOutsideEarthBounds" classname="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.001"/>
+  <testcase name="listingPriceMustRemainPositiveAfterRounding" classname="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.003"/>
+  <testcase name="explicitEditGrantAllowsEditingAndViewing" classname="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.002"/>
   <testcase name="publicListingCanBeViewedByAnyone" classname="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.001"/>
   <testcase name="deletePermissionDoesNotGrantEditPermission" classname="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.002"/>
   <testcase name="listingPriceRoundsHalfUpToNearestThousandAndRemainsAnInteger" classname="vn.sonbds.marketplace.realestate.ResourceAccessServiceTest" time="0.001"/>

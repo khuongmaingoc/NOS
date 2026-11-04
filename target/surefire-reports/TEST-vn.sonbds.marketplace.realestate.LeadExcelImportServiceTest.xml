@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="vn.sonbds.marketplace.realestate.LeadExcelImportServiceTest" time="2.41" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="vn.sonbds.marketplace.realestate.LeadExcelImportServiceTest" time="2.154" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -66,10 +66,10 @@
     <property name="library.jansi.path" value="D:\1.Project\CongViec\JavaBackend\apache-maven-3.9.14\lib\jansi-native"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="rejectsUnsupportedFileExtension" classname="vn.sonbds.marketplace.realestate.LeadExcelImportServiceTest" time="0.07">
-    <system-out><![CDATA[14:00:05.469 [main] INFO org.hibernate.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.3.Final
+  <testcase name="rejectsUnsupportedFileExtension" classname="vn.sonbds.marketplace.realestate.LeadExcelImportServiceTest" time="0.037">
+    <system-out><![CDATA[14:18:39.728 [main] INFO org.hibernate.validator.internal.util.Version -- HV000001: Hibernate Validator 8.0.3.Final
 ]]></system-out>
   </testcase>
-  <testcase name="rejectsWorkbookWithoutRequiredNameColumn" classname="vn.sonbds.marketplace.realestate.LeadExcelImportServiceTest" time="1.562"/>
-  <testcase name="importsValidRowsSkipsDuplicatesAndReportsInvalidRows" classname="vn.sonbds.marketplace.realestate.LeadExcelImportServiceTest" time="0.256"/>
+  <testcase name="rejectsWorkbookWithoutRequiredNameColumn" classname="vn.sonbds.marketplace.realestate.LeadExcelImportServiceTest" time="1.312"/>
+  <testcase name="importsValidRowsSkipsDuplicatesAndReportsInvalidRows" classname="vn.sonbds.marketplace.realestate.LeadExcelImportServiceTest" time="0.185"/>
 </testsuite>

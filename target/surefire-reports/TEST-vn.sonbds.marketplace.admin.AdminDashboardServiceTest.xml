@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="vn.sonbds.marketplace.admin.AdminDashboardServiceTest" time="2.163" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="vn.sonbds.marketplace.admin.AdminDashboardServiceTest" time="4.048" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -66,7 +66,7 @@
     <property name="library.jansi.path" value="D:\1.Project\CongViec\JavaBackend\apache-maven-3.9.14\lib\jansi-native"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="requiresCurrencyWhenFilteringPriceRange" classname="vn.sonbds.marketplace.admin.AdminDashboardServiceTest" time="2.098">
+  <testcase name="requiresCurrencyWhenFilteringPriceRange" classname="vn.sonbds.marketplace.admin.AdminDashboardServiceTest" time="3.963">
     <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
 WARNING: A Java agent has been loaded dynamically (C:\Users\mai.ngoc.khuong\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.7\byte-buddy-agent-1.17.7.jar)
 WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
@@ -75,5 +75,5 @@ WARNING: Dynamic loading of agents will be disallowed by default in a future rel
 ]]></system-err>
   </testcase>
   <testcase name="rejectsReversedDateRangeBeforeQueryingData" classname="vn.sonbds.marketplace.admin.AdminDashboardServiceTest" time="0.002"/>
-  <testcase name="requiresCurrencyWhenGroupingByPriceRange" classname="vn.sonbds.marketplace.admin.AdminDashboardServiceTest" time="0.006"/>
+  <testcase name="requiresCurrencyWhenGroupingByPriceRange" classname="vn.sonbds.marketplace.admin.AdminDashboardServiceTest" time="0.002"/>
 </testsuite>

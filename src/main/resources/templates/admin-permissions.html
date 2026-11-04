@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7f4">
+    <title>Gán quyền xem tin | Sơn BĐS</title>
+    <link rel="stylesheet" th:href="@{/css/site.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body class="admin-body">
+<div class="admin-layout">
+    <aside class="admin-sidebar" aria-label="Điều hướng quản trị">
+        <a class="admin-brand" th:href="@{/}" aria-label="Sơn BĐS - Trang chủ">
+            <span class="admin-brand-mark">S</span>
+            <span class="admin-brand-name">SƠN<span>BĐS</span><small>REAL ESTATE</small></span>
+        </a>
+        <p class="admin-nav-label">KHÔNG GIAN QUẢN TRỊ</p>
+        <nav class="admin-side-nav">
+            <a class="admin-nav-link" th:href="@{/admin}">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>
+                <span>Tổng quan</span>
+            </a>
+            <a class="admin-nav-link" th:href="@{/leads}">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M3.5 20v-1.3a5.5 5.5 0 0 1 11 0V20m4-11v6m-3-3h6"/></svg>
+                <span>Quản lý khách hàng</span>
+            </a>
+            <a class="admin-nav-link is-active" th:href="@{/admin/permissions}" aria-current="page">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 19 6v5.2c0 4.4-2.8 7.5-7 9.3-4.2-1.8-7-4.9-7-9.3V6z"/><path d="m9 12 2 2 4-4"/></svg>
+                <span>Gán quyền xem tin</span>
+            </a>
+        </nav>
+        <div class="admin-sidebar-bottom">
+            <div class="admin-profile">
+                <span class="admin-avatar">AD</span>
+                <span class="admin-profile-copy"><strong>Quản trị viên</strong><small>Quản lý hệ thống</small></span>
+                <span class="admin-online-dot" aria-label="Đang hoạt động"></span>
+            </div>
+            <a class="admin-sidebar-home" th:href="@{/}">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3.5 10 8.5-7 8.5 7v9a1.5 1.5 0 0 1-1.5 1.5h-14A1.5 1.5 0 0 1 3.5 19z"/><path d="M9 20.5v-7h6v7"/></svg>
+                <span>Về trang chủ</span>
+            </a>
+        </div>
+    </aside>
+
+    <div class="admin-workspace">
+        <header class="admin-topbar">
+            <div class="admin-breadcrumb"><a th:href="@{/admin}">Quản trị hệ thống</a><span class="breadcrumb-divider">/</span><strong>Gán quyền xem tin</strong></div>
+            <div class="admin-top-actions">
+                <span class="admin-live-status"><i></i> Hệ thống đang hoạt động</span>
+                <form th:action="@{/logout}" method="post"><button class="admin-logout" type="submit">Đăng xuất</button></form>
+            </div>
+        </header>
+
+        <main class="admin-dashboard">
+            <section class="admin-page-heading">
+                <div>
+                    <p class="admin-eyebrow"><span></span> PHÂN QUYỀN TIN ĐĂNG</p>
+                    <h1>Gán quyền xem tin bất động sản</h1>
+                    <p class="admin-page-description">Chọn tin của đầu chủ và đầu khách được phép xem. Quyền này chỉ cho phép xem, không cấp quyền sửa hoặc xóa.</p>
+                </div>
+            </section>
+
+            <p class="notice" th:if="${notice}" th:text="${notice}"></p>
+            <p class="form-error" th:if="${error}" th:text="${error}"></p>
+
+            <section class="admin-card admin-account-panel">
+                <div class="admin-section-heading">
+                    <div class="admin-section-title">
+                        <span class="admin-section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 19 6v5.2c0 4.4-2.8 7.5-7 9.3-4.2-1.8-7-4.9-7-9.3V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+                        <div><p class="admin-card-eyebrow">CẤP QUYỀN MỚI</p><h2>Chọn tin và đầu khách</h2></div>
+                    </div>
+                </div>
+                <form class="admin-filter-form admin-grant-form" th:action="@{/admin/permissions}" method="post">
+                    <label>Tin bất động sản
+                        <select name="listingId" required>
+                            <option value="">Chọn tin cần cấp quyền</option>
+                            <option th:each="listing : ${pageData.listings}" th:value="${listing.id}"
+                                    th:text="${listing.title + ' · ' + listing.address + ' · Đầu chủ: ' + listing.ownerName}"></option>
+                        </select>
+                    </label>
+                    <label>Đầu khách
+                        <select name="accountId" required>
+                            <option value="">Chọn đầu khách</option>
+                            <option th:each="customer : ${pageData.customers}" th:value="${customer.id}"
+                                    th:text="${customer.name + ' · ' + customer.email}"></option>
+                        </select>
+                    </label>
+                    <div class="admin-filter-actions">
+                        <button class="admin-primary-action" type="submit">Cấp quyền xem</button>
+                    </div>
+                </form>
+                <p class="admin-section-description" th:if="${#lists.isEmpty(pageData.listings)}">Chưa có tin bất động sản để cấp quyền.</p>
+                <p class="admin-section-description" th:if="${#lists.isEmpty(pageData.customers)}">Chưa có tài khoản đầu khách.</p>
+            </section>
+
+            <section class="admin-card admin-account-panel admin-permissions-current">
+                <div class="admin-section-heading">
+                    <div class="admin-section-title">
+                        <span class="admin-section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h14A1.5 1.5 0 0 1 20.5 6v12a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 18V6A1.5 1.5 0 0 1 5 4.5Z"/><path d="M7.5 9h9m-9 4h9m-9 4h5"/></svg></span>
+                        <div><p class="admin-card-eyebrow">QUYỀN ĐANG CÓ HIỆU LỰC</p><h2>Tài khoản được xem tin</h2></div>
+                    </div>
+                    <span class="admin-count-pill" th:text="${#lists.size(pageData.grants) + ' quyền'}"></span>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Tin bất động sản</th><th>Tài khoản được cấp</th><th>Email</th><th>Quyền</th><th>Thao tác</th></tr></thead>
+                        <tbody>
+                        <tr th:each="grant : ${pageData.grants}">
+                            <td class="admin-name-cell" th:text="${grant.listingTitle}"></td>
+                            <td th:text="${grant.customerName}"></td>
+                            <td th:text="${grant.customerEmail ?: '—'}"></td>
+                            <td><span class="admin-role-pill">Xem</span></td>
+                            <td>
+                                <form th:action="@{/admin/permissions/{id}/revoke(id=${grant.id})}" method="post"
+                                      onsubmit="return confirm('Thu hồi quyền xem tin của đầu khách này?')">
+                                    <button class="admin-logout" type="submit">Thu hồi</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(pageData.grants)}"><td colspan="5" class="admin-empty">Chưa có quyền xem tin nào được cấp riêng.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <footer class="admin-footer">© 2026 Sơn BĐS <span>·</span> Khu vực quản trị</footer>
+        </main>
+    </div>
+</div>
+</body>
+</html>

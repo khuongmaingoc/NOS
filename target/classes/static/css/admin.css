@@ -555,6 +555,15 @@
     color: #b0b8b1;
 }
 
+.admin-grant-form {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) auto;
+    align-items: end;
+}
+
+.admin-permissions-current {
+    margin-top: 24px;
+}
+
 .admin-filter-actions {
     display: flex;
     align-items: flex-end;

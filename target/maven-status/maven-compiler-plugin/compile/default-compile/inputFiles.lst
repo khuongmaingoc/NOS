@@ -9,6 +9,8 @@ D:\1.Project\CongViec\SonBDS_Java\src\main\java\vn\sonbds\marketplace\admin\Admi
 D:\1.Project\CongViec\SonBDS_Java\src\main\java\vn\sonbds\marketplace\admin\AdminDashboardData.java
 D:\1.Project\CongViec\SonBDS_Java\src\main\java\vn\sonbds\marketplace\admin\AdminDashboardFilter.java
 D:\1.Project\CongViec\SonBDS_Java\src\main\java\vn\sonbds\marketplace\admin\AdminDashboardService.java
+D:\1.Project\CongViec\SonBDS_Java\src\main\java\vn\sonbds\marketplace\admin\AdminListingAccessController.java
+D:\1.Project\CongViec\SonBDS_Java\src\main\java\vn\sonbds\marketplace\admin\AdminListingAccessService.java
 D:\1.Project\CongViec\SonBDS_Java\src\main\java\vn\sonbds\marketplace\config\SecurityConfig.java
 D:\1.Project\CongViec\SonBDS_Java\src\main\java\vn\sonbds\marketplace\realestate\AccessGrant.java
 D:\1.Project\CongViec\SonBDS_Java\src\main\java\vn\sonbds\marketplace\realestate\AccessGrantRepository.java
